@@ -1,0 +1,17 @@
+FROM       python:3
+LABEL      maintainer="Rahul Shetty"
+
+RUN        pip install numpy
+RUN        pip install pandas
+RUN        pip install sklearn
+
+WORKDIR    /app
+COPY       get_company_probability.py /app/
+COPY       DT_2017md10_mss5_msl5_mf25_balanced.sav /app/
+COPY       companies_with_features.csv /app/
+
+RUN        chmod a+x get_company_probability.py
+
+ENTRYPOINT ["./get_company_probability.py DT_2017md10_mss5_msl5_mf25_balanced.sav companies_with_features.csv"]
+
+#CMD ["./get_company_probability.py DT_2017md10_mss5_msl5_mf25_balanced.sav companies_with_features.csv"]
